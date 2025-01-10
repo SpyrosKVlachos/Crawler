@@ -78,5 +78,45 @@
     {
         "url": "https://el.wikipedia.org/wiki/GNU_General_Public_License",
         "title": "Γενική Άδεια Δημόσιας Χρήσης GNU"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%9C%CF%8C%CE%BD%CF%84%CF%85_%CE%A0%CE%AC%CE%B9%CE%B8%CE%BF%CE%BD",
+        "title": "Monty Python"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%A0%CF%8D%CE%B8%CF%89%CE%BD%CE%B1%CF%82",
+        "title": "Πύθωνας"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%93%CE%BB%CF%8E%CF%83%CF%83%CE%B1_%CF%83%CE%B5%CE%BD%CE%B1%CF%81%CE%AF%CF%89%CE%BD",
+        "title": "Γλώσσα προγραμματισμού σεναρίων"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%9A%CE%BB%CE%AE%CF%83%CE%B5%CE%B9%CF%82_%CF%83%CF%85%CF%83%CF%84%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82",
+        "title": "Κλήση συστήματος"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/Microsoft_Windows",
+        "title": "Microsoft Windows"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/IDLE_(Python)",
+        "title": "IDLE (Python)"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%9F%CE%BB%CE%BF%CE%BA%CE%BB%CE%B7%CF%81%CF%89%CE%BC%CE%AD%CE%BD%CE%BF_%CF%80%CE%B5%CF%81%CE%B9%CE%B2%CE%AC%CE%BB%CE%BB%CE%BF%CE%BD_%CE%B1%CE%BD%CE%AC%CF%80%CF%84%CF%85%CE%BE%CE%B7%CF%82",
+        "title": "Ολοκληρωμένο περιβάλλον ανάπτυξης"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%94%CE%B9%CE%B5%CF%81%CE%BC%CE%B7%CE%BD%CE%AD%CE%B1%CF%82_(%CF%85%CF%80%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CF%83%CF%84%CE%AD%CF%82)",
+        "title": "Διερμηνέας (υπολογιστές)"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%94%CE%B5%CF%83%CE%BC%CE%B5%CF%85%CE%BC%CE%AD%CE%BD%CE%B7_%CE%BB%CE%AD%CE%BE%CE%B7_(%CF%85%CF%80%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CF%83%CF%84%CE%AD%CF%82)",
+        "title": "Δεσμευμένη λέξη (υπολογιστές)"
+    },
+    {
+        "url": "https://el.wikipedia.org/wiki/%CE%A4%CF%8D%CF%80%CE%BF%CF%82_%CE%B4%CE%B5%CE%B4%CE%BF%CE%BC%CE%AD%CE%BD%CF%89%CE%BD",
+        "title": "Τύπος δεδομένων"
     }
 ]

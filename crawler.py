@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import time
 
-def crawl_wikipedia(start_url, max_pages=20, output_file='output.json'):
+def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
     visited_pages = [] # list of the visited URLs
     pages_to_visit = [start_url] # list of URLs to visit
 
@@ -11,6 +11,7 @@ def crawl_wikipedia(start_url, max_pages=20, output_file='output.json'):
         current_url = pages_to_visit.pop(0)
 
         try:
+            print(f"Γίνεται λήψη δεδομένων {len(visited_pages)+1}/{max_pages}")
             response = requests.get(current_url)
             if response.status_code != 200:
                 print(f"Σφάλμα HTTP: {response.status_code} στη σελίδα {current_url}")
