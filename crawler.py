@@ -21,7 +21,13 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
 
             # Titles
             title = soup.find('h1').get_text()
-            visited_pages.append({"url": current_url, "title": title})
+            
+            #content
+            content_div = soup.find('div', class_='mw-content-ltr mw-parser-output')
+            content = content_div.get_text(strip=True) if content_div else "Κείμενο μη διαθέσιμο."
+            
+            #add to visited pages list
+            visited_pages.append({"url": current_url, "title": title, "content": content})
 
             # Links
             for link in soup.find_all('a', href=True):
