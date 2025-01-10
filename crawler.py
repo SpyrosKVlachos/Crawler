@@ -17,7 +17,7 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
                 print(f"Σφάλμα HTTP: {response.status_code} στη σελίδα {current_url}")
                 continue
 
-            soup = BeautifulSoup(response.content, 'html.parser') # html analy
+            soup = BeautifulSoup(response.content, 'html.parser') # html analysis
 
             # Titles
             title = soup.find('h1').get_text()
