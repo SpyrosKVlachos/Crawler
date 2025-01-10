@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
+import re
 
 def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
     visited_pages = [] # list of the visited URLs
@@ -13,6 +14,7 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
         try:
             print(f"Γίνεται λήψη δεδομένων {len(visited_pages)+1}/{max_pages}")
             response = requests.get(current_url)
+            response.encode = 'utf-8'
             if response.status_code != 200:
                 print(f"Σφάλμα HTTP: {response.status_code} στη σελίδα {current_url}")
                 continue
@@ -23,8 +25,14 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
             title = soup.find('h1').get_text()
             
             #content
-            content_div = soup.find('div', class_='mw-content-ltr mw-parser-output')
-            content = content_div.get_text(strip=True) if content_div else "Κείμενο μη διαθέσιμο."
+            content_div = soup.find('div', class_='mw-parser-output')
+            if content_div:
+                content = content_div.text
+                content = re.sub(r"\[\d+\]", "", content)
+                content = re.sub(r"\n+", "\n\n", content)
+                content = re.sub(r"\s+", " ", content).strip()
+            else:
+                content = "Κείμενο μη διαθέσιμο."
             
             #add to visited pages list
             visited_pages.append({"url": current_url, "title": title, "content": content})
@@ -39,7 +47,9 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
             
             # Wait for 1 second before next request
             time.sleep(1)
-
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Σφάλμα σύνδεσης στη σελίδα {current_url}: {e}")
         except Exception as e:
             print(f"Σφάλμα κατα την Επεξεργασία της σελίδας {current_url}: {e}")
 
