@@ -43,7 +43,7 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
             for link in soup.find_all('a', href=True):
                 href = link['href']
                 if href.startswith('/wiki/') and ':' not in href:
-                    full_url = f"https://el.wikipedia.org{href}"
+                    full_url = f"https://en.wikipedia.org{href}"
                     if full_url not in [page['url'] for page in visited_pages] and full_url not in pages_to_visit:
                         pages_to_visit.append(full_url)
             
@@ -62,5 +62,5 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
     print (f"Τα δεδομένα αποθηκεύτηκαν στο {output_file}")
 
 if __name__ == "__main__":
-    start_url = 'https://el.wikipedia.org/wiki/Python'
+    start_url = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
     crawl_wikipedia(start_url)
