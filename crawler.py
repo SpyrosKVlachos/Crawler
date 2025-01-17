@@ -5,8 +5,8 @@ import time
 import re
 
 def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
-    visited_pages = [] # list of the visited URLs
-    pages_to_visit = [start_url] # list of URLs to visit
+    visited_pages = []
+    pages_to_visit = [start_url]
     page_id = 1
 
     while pages_to_visit and len(visited_pages) < max_pages:
@@ -20,12 +20,10 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
                 print(f"Σφάλμα HTTP: {response.status_code} στη σελίδα {current_url}")
                 continue
 
-            soup = BeautifulSoup(response.content, 'html.parser') # html analysis
+            soup = BeautifulSoup(response.content, 'html.parser')
 
-            # Titles
             title = soup.find('h1').get_text()
             
-            #content
             content_div = soup.find('div', class_='mw-parser-output')
             if content_div:
                 content = content_div.text
@@ -35,11 +33,9 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
             else:
                 content = "Κείμενο μη διαθέσιμο."
             
-            #add to visited pages list
             visited_pages.append({"id": page_id,"url": current_url, "title": title, "content": content})
             page_id += 1
 
-            # Links
             for link in soup.find_all('a', href=True):
                 href = link['href']
                 if href.startswith('/wiki/') and ':' not in href:
@@ -47,7 +43,6 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
                     if full_url not in [page['url'] for page in visited_pages] and full_url not in pages_to_visit:
                         pages_to_visit.append(full_url)
             
-            # Wait for 1 second before next request
             time.sleep(1)
         
         except requests.exceptions.RequestException as e:
@@ -55,7 +50,6 @@ def crawl_wikipedia(start_url, max_pages=30, output_file='output.json'):
         except Exception as e:
             print(f"Σφάλμα κατα την Επεξεργασία της σελίδας {current_url}: {e}")
 
-            # Save progress to JSON file
     with open(output_file, 'w', encoding='utf-8') as file:
         json.dump(visited_pages, file, ensure_ascii=False, indent=4)
 

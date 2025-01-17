@@ -33,7 +33,6 @@ def lemmatize_text(tokens):
     lemmatized_tokens = []
     pos_tags = pos_tag(tokens)
     for token, tag in pos_tags:
-        #english lemmatization
         if re.match(r'[a-zA-Z]+', token):
             wordnet_pos = get_wordnet_pos(tag)
             lemmatized_tokens.append(lemmatizer_en.lemmatize(token, pos=wordnet_pos))

@@ -10,7 +10,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from rank_bm25 import BM25Okapi
 
-# Λήψη απαραίτητων δεδομένων NLTK (αν δεν έχουν ήδη ληφθεί)
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -81,7 +80,7 @@ def boolean_retrieval(query, documents):
     query = query.strip().lower()
     tokens = re.findall(r'\b\w+\b|and|or|not', query, flags=re.IGNORECASE)
     
-    print(f"Tokens από το ερώτημα: {tokens}")  # Εκτύπωση των tokens
+    print(f"Tokens από το ερώτημα: {tokens}") 
 
     def evaluate(operators, operands):
         operator = operators.pop()
@@ -109,9 +108,9 @@ def boolean_retrieval(query, documents):
                     precedence[operators[-1]] >= precedence[token]):
                 evaluate(operators, operands)
             operators.append(token)
-        else:  # It's a term
+        else:
             term_set = {doc_id for doc_id, content in terms.items() if token in content}
-            print(f"Όρος '{token}' βρέθηκε στα έγγραφα: {sorted(term_set)}")  # Εκτύπωση αποτελεσμάτων όρου
+            print(f"Όρος '{token}' βρέθηκε στα έγγραφα: {sorted(term_set)}")  
             operands.append(term_set)
 
     while operators:
@@ -120,50 +119,37 @@ def boolean_retrieval(query, documents):
     return sorted(operands.pop() if operands else [])
 
 def tfidf_retrieval(query, processed_documents):
-    # Create a TF-IDF vectorizer
     vectorizer = TfidfVectorizer()
 
-    # Prepare the documents and query for TF-IDF analysis
     documents = [doc["content"] for doc in processed_documents]
     all_data = documents + [query]
 
-    # Generate TF-IDF vectors
     tfidf_matrix = vectorizer.fit_transform(all_data)
 
-    # Get the TF-IDF vector for the query
     query_vector = tfidf_matrix[-1]
 
-    # Calculate cosine similarity between the query and each document
     cosine_similarities = cosine_similarity(tfidf_matrix[:-1], query_vector.reshape(1, -1))
 
-    # Extract document IDs and sort them by cosine similarity (descending order)
     doc_ids = [doc["id"] for doc in processed_documents]
     sorted_results = sorted(zip(doc_ids, cosine_similarities.squeeze()), key=lambda x: x[1], reverse=True)
 
-    # Return the document IDs sorted by relevance to the query
     return [result[0] for result in sorted_results]
 
 def vms_retrieval(query, processed_documents):
     vectorizer = TfidfVectorizer()
 
-        # Προετοιμασία εγγράφων και ερωτήματος για ανάλυση TF-IDF
     documents = [doc["content"] for doc in processed_documents]
     all_data = documents + [query]
 
-        # Δημιουργία διανυσμάτων TF-IDF
     tfidf_matrix = vectorizer.fit_transform(all_data)
 
-        # Λήψη του διανύσματος TF-IDF για το ερώτημα
     query_vector = tfidf_matrix[-1]
 
-        # Υπολογισμός ομοιότητας συνημιτόνου μεταξύ ερωτήματος και κάθε εγγράφου
     cosine_similarities = cosine_similarity(tfidf_matrix[:-1], query_vector.reshape(1, -1))
 
-        # Εξαγωγή ID εγγράφων και ταξινόμηση κατά ομοιότητα συνημιτόνου (φθίνουσα σειρά)
     doc_ids = [doc["id"] for doc in processed_documents]
     sorted_results = sorted(zip(doc_ids, cosine_similarities.squeeze()), key=lambda x: x[1], reverse=True)
 
-        # Επιστροφή των ID των εγγράφων ταξινομημένα κατά συνάφεια με το ερώτημα
     return [result[0] for result in sorted_results if result[1] > 0]
 
 def bm25_retrieval(query, processed_documents):
@@ -183,7 +169,7 @@ def main():
     output_file_path = "output.json"
     output_data = load_output_file(output_file_path)
 
-    if output_data is None: # Handle file loading errors
+    if output_data is None:
         return
 
     processed_documents = [{"id": item["id"], "content": item["content"]} for item in output_data]
